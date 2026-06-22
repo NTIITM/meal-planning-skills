@@ -1,0 +1,4 @@
+interface:
+  display_name: "Store Locked Grocery Planner"
+  short_description: "Build store-specific grocery orders."
+  default_prompt: "Use $store-locked-grocery-planner to turn a meal plan into a store-specific grocery order with package counts and substitutions."

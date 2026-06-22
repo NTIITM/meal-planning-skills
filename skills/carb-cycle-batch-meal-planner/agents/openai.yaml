@@ -1,0 +1,4 @@
+interface:
+  display_name: "Carb Cycle Batch Meal Planner"
+  short_description: "Build carb-cycle meal prep plans."
+  default_prompt: "Use $carb-cycle-batch-meal-planner to create a carb-cycling weekly meal prep plan with storage and micronutrient checks."
