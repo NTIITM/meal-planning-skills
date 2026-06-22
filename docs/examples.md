@@ -1,105 +1,213 @@
-# Examples
+# 示例
 
-This document shows how the two skills can be used separately or as a combined workflow.
+中文 | [English](examples.en.md)
 
-## Example 1: Carb-Cycling Batch Meal Plan
+本文展示两个 skill 的组合工作流：先用 `carb-cycle-batch-meal-planner` 生成一周碳循环备餐计划，再用 `store-locked-grocery-planner` 锁定到盒马门店生成下单清单。
 
-Prompt:
+## 示例 1：一周碳循环集中备餐
+
+用户请求：
 
 ```text
 Use $carb-cycle-batch-meal-planner.
-I am 24, male, 182cm, 88kg, and train six days per week:
-Monday back, Tuesday chest, Wednesday arms, Thursday shoulders, Friday chest, Saturday back.
-I play badminton for about 90 minutes on Wednesday and Saturday nights and do 30 minutes of fasted cardio every morning.
-Goal: fat loss while keeping muscle.
-I dislike broccoli, chicken breast, and yogurt.
-I can buy beef, chicken thighs, rice, oats, potatoes, vegetables, tofu, eggs, milk, black beans, red beans, soybeans, chickpeas, and canned fish.
-Build a one-week carb-cycling meal plan. Use raw weights for shopping and include fiber, Omega-3, potassium, sodium, calcium, and magnesium checks.
+我24岁，男，182cm，88kg。每周训练6天：周一背、周二胸、周三手臂、周四肩、周五胸、周六背。
+周三和周六晚上打90分钟羽毛球，每天早上空腹有氧30分钟。
+目标是减脂保肌。不喜欢西兰花、鸡胸肉和酸奶。
+希望豆类和米饭一起煮，所有购物量按生重/干重计算。
+能买到牛肉、鸡腿肉、米饭、燕麦、土豆、各种蔬菜、豆腐、鸡蛋、牛奶、黑豆、红豆、黄豆、鹰嘴豆和鱼罐头。
+生成一周碳循环食谱、集中备餐时间线、储存复热说明，并检查纤维、Omega-3、钾、钠、钙、镁。
 ```
 
-Representative result excerpt:
+计算摘录：
 
 ```text
-BMR: about 1903 kcal
-Estimated TDEE: about 3140 kcal
-Weekly target: about 2550-2600 kcal/day
-Protein target: about 170-190g/day
-High-carb days: Wednesday and Saturday
-Medium-carb days: Monday, Tuesday, Thursday, Friday
-Low-carb day: Sunday
+BMR: 约 1903 kcal
+TDEE 估算: 约 3140 kcal
+减脂保肌周均目标: 约 2550-2600 kcal/天
+蛋白目标: 约 170-190g/天
+高碳日: 周三、周六
+中碳日: 周一、周二、周四、周五
+低碳日: 周日
 ```
 
-Daily macro excerpt:
+### 一周日历
 
-| Day | Training | Carb Type | Calories | Protein | Carbs | Fat | Fiber |
+| 日期 | 训练 | 碳水类型 | 热量 | 蛋白质 | 碳水 | 脂肪 | 纤维 |
 |---|---|---|---:|---:|---:|---:|---:|
-| Monday | Back + cardio | Medium | 2425 | 174g | 284g | 68g | 36g |
-| Tuesday | Chest + cardio | Medium | 2510 | 187g | 288g | 77g | 37g |
-| Wednesday | Arms + badminton | High | 2990 | 190g | 413g | 68g | 41g |
-| Saturday | Back + badminton | High | 2830 | 169g | 420g | 55g | 38g |
-| Sunday | Recovery | Low | 2225 | 170g | 209g | 89g | 38g |
+| 周一 | 背+空腹有氧 | 中碳 | 2425 | 174g | 284g | 68g | 36g |
+| 周二 | 胸+空腹有氧 | 中碳 | 2510 | 187g | 288g | 77g | 37g |
+| 周三 | 手臂+羽毛球 | 高碳 | 2990 | 190g | 413g | 68g | 41g |
+| 周四 | 肩+空腹有氧 | 中碳 | 2510 | 163g | 315g | 70g | 38g |
+| 周五 | 胸+空腹有氧 | 中碳 | 2500 | 186g | 283g | 77g | 39g |
+| 周六 | 背+羽毛球 | 高碳 | 2830 | 169g | 420g | 55g | 38g |
+| 周日 | 休息/轻活动 | 低碳 | 2225 | 170g | 209g | 89g | 38g |
 
-Meal modules:
+### 米豆饭基底
 
-| Module | Raw / Dry Weights | Notes |
+豆类按干重称量，先泡 `8-12小时`。如果使用普通电饭煲，黑豆、黄豆、鹰嘴豆建议先煮到半熟，再和生米同煮；压力锅可用杂粮饭模式。
+
+| 日期 | 午餐米豆饭 | 晚餐米豆饭 |
 |---|---|---|
-| Breakfast | oats, milk, eggs, chia seeds, berries or banana | Yogurt-free version; berries can be frozen. |
-| Rice-bean base | dry rice plus dry black beans, red beans, soybeans, or chickpeas | Beans are weighed dry before soaking. |
-| Tomato mushroom beef | lean beef, tomatoes, mushrooms, onion, spinach | Batch-cooked for lunch/dinner boxes. |
-| Ginger garlic chicken thigh | boneless skinless chicken thigh, carrots, bell pepper, leafy greens | Badminton pre-meal portions use less oil and less fiber. |
-| Tofu egg tomato | firm tofu, eggs, tomatoes, spinach, mushrooms | Supports calcium and plant-protein diversity. |
-| Fish potato bowl | canned mackerel/salmon/tuna, potatoes, tomatoes, greens | Prefer water-packed fish; check sodium and drained weight. |
+| 周一 | 大米70g+黑豆15g | 大米70g+鹰嘴豆15g |
+| 周二 | 大米70g+黑豆15g | 大米55g+黄豆10g |
+| 周三 | 大米95g+红豆20g，另加土豆250g | 大米105g+红豆5g |
+| 周四 | 大米55g+黑豆10g，另加土豆250g | 大米70g+鹰嘴豆15g |
+| 周五 | 大米70g+鹰嘴豆15g | 大米55g+黄豆10g |
+| 周六 | 大米110g+红豆20g，另加土豆300g | 大米105g+红豆5g |
+| 周日 | 大米30g+黑豆10g | 大米30g+鹰嘴豆10g |
 
-Nutrition loop excerpt:
+### 早餐
 
-| Nutrient | Target | Plan Average | Status |
+| 日型 | 早餐 |
+|---|---|
+| 中碳日 | 燕麦70g + 牛奶500ml + 鸡蛋2个 + 奇亚籽8g + 蓝莓100g |
+| 高碳日 | 燕麦85g + 牛奶500ml + 鸡蛋2个 + 奇亚籽8g + 香蕉120g + 蓝莓80g |
+| 低碳日 | 燕麦55g + 牛奶450ml + 鸡蛋2个 + 奇亚籽8g + 蓝莓80g |
+
+### 核心批量菜
+
+| 菜谱模块 | 原料生重/干重 | 用途 | 储存 |
+|---|---|---|---|
+| 番茄蘑菇牛肉 | 瘦牛肉960g、番茄1000g、蘑菇480g、洋葱200g、菠菜320g、橄榄油12g、薄盐生抽20g | 周一午、周三午、周四晚、周日晚 | 前3天冷藏，后半周冷冻 |
+| 姜蒜鸡腿肉 | 去皮去骨鸡腿肉1290g、胡萝卜420g、红彩椒240g、小白菜610g、橄榄油12g、薄盐生抽25g | 周一晚、周二午、周三晚、周五午、周六晚 | 羽毛球前份少油、少叶菜 |
+| 豆腐鸡蛋番茄 | 北豆腐840g、鸡蛋3个、番茄600g、菠菜240g、蘑菇300g、橄榄油6g、薄盐生抽15g | 周二晚、周五晚、周日午 | 建议冷藏2-3天内吃；后半周冷冻口感会变粗 |
+| 鱼罐头土豆碗 | 水浸青花鱼/鲭鱼/金枪鱼罐头2罐，沥干约240g；土豆800g；番茄300g；小白菜200g | 周四午、周六午 | 鱼罐头吃前再开，土豆和蔬菜提前分装 |
+
+### 菜谱清单
+
+#### 番茄蘑菇牛肉
+
+- 总份数：4份。
+- 原料：瘦牛肉960g、番茄1000g、口蘑/白蘑菇480g、洋葱200g、菠菜320g、橄榄油12g、薄盐生抽20g、姜蒜和黑胡椒按口味。
+- 步骤：牛肉切片或条，少量生抽和姜蒜抓匀；锅热后用一半橄榄油把牛肉快速煎到变色盛出；同锅炒洋葱和蘑菇，加入番茄煮到出汁；放回牛肉，最后拌入焯过的菠菜并调味。
+- 每份营养估算：约520 kcal，蛋白质57g，碳水23g，脂肪22g，纤维6g，钠约420mg，钾约1450mg，钙约120mg，镁约95mg，Omega-3约0.1g。置信度：中。
+- 储存复热：周一、周三份冷藏；周四、周日份冷冻。前夜转冷藏，微波炉中高火2-3分钟，中途翻拌一次，整体热透后吃。
+- 替换：牛肉可换瘦猪里脊或额外豆腐；菠菜可换冷冻菠菜；普通生抽会明显提高钠，需要减少用量。
+
+#### 姜蒜鸡腿肉
+
+- 总份数：5份。
+- 原料：去皮去骨鸡腿肉1290g、胡萝卜420g、红彩椒240g、小白菜610g、橄榄油12g、薄盐生抽25g、姜蒜、白胡椒。
+- 步骤：鸡腿肉切块，用姜蒜、薄盐生抽和少量油腌15分钟；空气炸锅或烤箱180摄氏度烤15-18分钟，或平底锅煎熟；胡萝卜和彩椒炒到断生，小白菜快速焯水或快炒；按5份分装。周三、周六晚羽毛球前的份量少放油和叶菜。
+- 每份营养估算：约475 kcal，蛋白质49g，碳水13g，脂肪23g，纤维4g，钠约360mg，钾约950mg，钙约120mg，镁约60mg，Omega-3约0.1g。置信度：中。
+- 储存复热：前3天冷藏，周五和周六晚份冷冻。复热前夜转冷藏，微波炉2-3分钟或锅中少量水焖热。
+- 替换：可买原味鸡腿排自己去皮切块；不要买奥尔良、黑椒等腌制款，否则钠和糖需要重算。
+
+#### 豆腐鸡蛋番茄
+
+- 总份数：3份。
+- 原料：北豆腐840g、鸡蛋3个、番茄600g、菠菜240g、蘑菇300g、橄榄油6g、薄盐生抽15g。
+- 步骤：豆腐切块沥水，平底锅少油煎到表面定型；鸡蛋炒成大块盛出；番茄和蘑菇炒出汁，加入豆腐、鸡蛋和菠菜，调味后收汁。
+- 每份营养估算：约415 kcal，蛋白质37g，碳水23g，脂肪21g，纤维7g，钠约330mg，钾约1200mg，钙约650mg，镁约150mg，Omega-3约0.1g。置信度：中。
+- 储存复热：优先冷藏2-3天内吃；若冷冻，豆腐口感会变紧实但仍可接受。微波炉2分钟后翻拌，再加热30-60秒。
+- 替换：北豆腐可换老豆腐或板豆腐；不要用内酯豆腐做批量餐盒，出水多且容易碎。
+
+#### 鱼罐头土豆碗
+
+- 总份数：2份。
+- 原料：水浸青花鱼/鲭鱼/金枪鱼罐头2罐，目标沥干重约240g；土豆800g；番茄300g；小白菜200g；黑胡椒、蒜粉或少量薄盐生抽。
+- 步骤：土豆切块蒸熟后称重分装；小白菜焯水，番茄切块单独装；鱼罐头不提前开，吃前开罐沥干后放入餐盒。若鱼罐头钠较高，不再额外加酱油。
+- 每份营养估算：约550 kcal，蛋白质39g，碳水75g，脂肪10g，纤维10g，钠约350-900mg，钾约1900mg，钙约160mg，镁约110mg，Omega-3取决于鱼种，青花鱼通常高于金枪鱼。置信度：中到低，取决于罐头标签。
+- 储存复热：土豆和蔬菜可冷藏或冷冻；鱼罐头常温存放，吃前再开。复热土豆和蔬菜后加入鱼，避免鱼腥味扩散。
+- 替换：优先水浸青花鱼/鲭鱼，其次水浸金枪鱼或鲑鱼罐头；油浸罐头可用，但脂肪和热量需要重算。
+
+### 集中备餐时间线
+
+| 时间 | 操作 |
+|---|---|
+| 00:00 | 泡好的豆子沥干；启动第一锅米豆饭；土豆上锅蒸 |
+| 00:10 | 鸡腿肉切块腌制；切番茄、蘑菇、洋葱、胡萝卜、彩椒 |
+| 00:25 | 鸡腿肉入空气炸锅/烤箱；同时开始番茄蘑菇牛肉锅 |
+| 00:45 | 焯菠菜和小白菜；继续第二锅/第三锅米豆饭 |
+| 01:05 | 做豆腐鸡蛋番茄；称早餐燕麦和奇亚籽干料包 |
+| 01:35 | 称米豆饭、肉菜、土豆，按日期分装 |
+| 01:55 | 周一到周三冷藏；周四到周日冷冻；贴标签 |
+| 02:10 | 清洁台面和厨具 |
+
+### 每日取餐表
+
+| 日期 | 早餐 | 午餐 | 加餐/水果 | 晚餐 | 前夜操作 |
+|---|---|---|---|---|---|
+| 周一 | 中碳燕麦 | 牛肉+黑豆饭 | 橙子 | 鸡腿+鹰嘴豆饭 | 无 |
+| 周二 | 中碳燕麦 | 鸡腿+黑豆饭 | 葡萄+牛奶 | 豆腐鸡蛋+黄豆饭 | 无 |
+| 周三 | 高碳燕麦 | 牛肉+红豆饭+土豆 | 香蕉 | 低油鸡腿+低豆红豆饭 | 无 |
+| 周四 | 中碳燕麦 | 鱼罐头土豆碗+黑豆饭 | 橙子+牛奶 | 牛肉+鹰嘴豆饭 | 周三晚转冷藏 |
+| 周五 | 中碳燕麦 | 鸡腿+鹰嘴豆饭 | 苹果+牛奶 | 豆腐鸡蛋+黄豆饭 | 周四晚转冷藏 |
+| 周六 | 高碳燕麦 | 鱼罐头土豆碗+红豆饭 | 香蕉 | 低油鸡腿+低豆红豆饭 | 周五晚转冷藏 |
+| 周日 | 低碳燕麦 | 豆腐鸡蛋+黑豆饭 | 苹果+少量坚果 | 牛肉+鹰嘴豆饭 | 周六晚转冷藏 |
+
+### 营养闭环
+
+| 项目 | 目标 | 计划均值 | 状态 |
 |---|---:|---:|---|
-| Calories | 2550-2600 kcal/day | about 2570 | OK |
-| Protein | 165-190g/day | about 177g | OK |
-| Fiber | 35-40g/day | about 38g | OK |
-| Sodium | below 2300mg/day when possible | about 1600mg before variable labels | OK if low-sodium condiments are used |
-| Calcium | at least 1000mg/day | about 1900mg | OK |
-| Magnesium | at least 400mg/day | about 670mg | OK |
-| Omega-3 | ALA plus fish-based EPA/DHA | covered by chia and fish | OK |
+| 热量 | 2550-2600 kcal/天 | 约2570 | 达标 |
+| 蛋白质 | 165-190g/天 | 约177g | 达标 |
+| 纤维 | 35-40g/天 | 约38g | 达标 |
+| 钠 | 尽量低于2300mg/天 | 约1600mg，不含不同品牌标签误差 | 需选薄盐生抽和低钠鱼罐头 |
+| 钾 | >=3400mg/天 | >6000mg | 充足；肾病或限钾人群不适用 |
+| 钙 | >=1000mg/天 | 约1900mg | 达标 |
+| 镁 | >=400mg/天 | 约670mg | 达标 |
+| Omega-3 | ALA + 鱼类 EPA/DHA | 奇亚籽+鱼罐头覆盖 | 达标 |
 
-## Example 2: Store-Locked Grocery Order
+## 示例 2：锁定盒马生成购物清单
 
-Prompt:
+用户请求：
 
 ```text
 Use $store-locked-grocery-planner.
-Take the weekly plan above and lock the order to Jiajiayue supermarket near Jinan Yinfeng Jiuxi City.
-I want a delivery-shopping list with product names, package sizes, buy counts, required amounts, surplus, and substitutions.
+根据上面的一周食谱，锁定到盒马鲜生，配送区域以济南银丰玖玺城为例。
+请按盒马 App 可搜索的商品名或商品目标，输出包装规格、购买数量、需要量、余量、替代品和置信度。
 ```
 
-Representative result excerpt:
+盒马门店库存通常需要 App 定位和登录才能确认。下面是可下单候选清单示例；若用户提供盒马 App 截图或购物车导出，置信度可提升为高。
 
-| Category | Product Target | Pack Size | Buy Qty | Required | Surplus | Confidence | Substitute |
-|---|---|---:|---:|---:|---:|---|---|
-| Chicken | unseasoned boneless skinless chicken thigh | 300g | 5 | 1290g | about 210g | Low to Medium unless app-verified | chicken leg quarters, 1.8-2kg, self-trim |
-| Beef | lean beef strips / tenderloin / round | 250g | 4 | 960g | about 40g | Low to Medium | unseasoned lean beef slices |
-| Eggs | fresh eggs | 10-count | 2 | 17 eggs | 3 eggs | Medium | any plain fresh egg pack |
-| Milk | unsweetened low-fat or skim milk | 250ml x 24 | 1 case | 4700ml | about 1300ml | Medium | 950ml low-fat milk x 5 |
-| Tofu | firm tofu / northern tofu | 300-400g | 3 | 840g | 60-360g | Low to Medium | firm tofu, not silken tofu |
-| Canned fish | water-packed mackerel / salmon / tuna | 150-200g | 2 | 240g drained | depends on drained weight | Low until label verified | water-packed tuna |
+| 类别 | 盒马商品名/搜索目标 | 包装规格 | 买几份 | 需要量 | 余量 | 用途 | 置信度 | 替代 |
+|---|---|---:|---:|---:|---:|---|---|---|
+| 鸡肉 | 盒马日日鲜 去皮去骨鸡腿肉/鸡腿肉丁 | 300g | 5 | 1290g | 约210g | 鸡腿肉模块 | 中，需 App 确认 | 原味鸡腿排；带骨鸡腿需买1.8-2kg |
+| 牛肉 | 盒马日日鲜 牛肉丝/牛里脊/牛腿肉 | 250g | 4 | 960g | 约40g | 牛肉模块 | 中，需 App 确认 | 原味牛肉片，不要黑椒腌制 |
+| 鸡蛋 | 盒马日日鲜 鲜鸡蛋 | 10枚 | 2 | 17枚 | 3枚 | 早餐+豆腐菜 | 中 | 任意原味鲜鸡蛋 |
+| 牛奶 | 盒马有机脱脂纯牛奶/低脂纯牛奶 | 950ml | 5 | 4700ml | 约50ml | 早餐和加餐 | 中 | 250ml*24 箱装低脂/脱脂奶 |
+| 豆腐 | 盒马日日鲜 北豆腐/老豆腐/板豆腐 | 300g | 3 | 840g | 约60g | 豆腐鸡蛋番茄 | 中 | 不用内酯豆腐 |
+| 鱼罐头 | 水煮鲭鱼/青花鱼罐头 | 150-200g | 2 | 沥干240g | 取决于沥干重 | 鱼罐头土豆碗 | 低到中 | 水浸金枪鱼、鲑鱼罐头 |
+| 大米 | 盒马 五常大米/东北大米 | 1kg | 1 | 990g | 约10g | 米豆饭 | 中 | 任意原味大米 |
+| 黑豆 | 黑豆 | 250-500g | 1 | 50g | 大量剩余 | 黑豆饭 | 中 | 多余下周用 |
+| 红豆 | 赤小豆/红豆 | 250-500g | 1 | 50g | 大量剩余 | 红豆饭 | 中 | 不买蜜红豆 |
+| 鹰嘴豆 | 鹰嘴豆 | 250-500g | 1 | 55g | 大量剩余 | 鹰嘴豆饭 | 低到中 | 用黑豆补足但风味更单一 |
+| 黄豆 | 黄豆 | 250-500g | 1 | 20g | 大量剩余 | 黄豆饭 | 中 | 冷冻毛豆仁，需改熟重 |
+| 燕麦 | 盒马高纤燕麦片/原味燕麦片 | 700g | 1 | 505g | 约195g | 早餐 | 中 | 桂格原味即食燕麦 |
+| 奇亚籽 | 原味奇亚籽 | 100-200g | 1 | 56g | 44-144g | 早餐 Omega-3/纤维 | 低到中 | 亚麻籽粉，需重新估算 |
+| 番茄 | 番茄 | 500g | 4 | 1900g | 约100g | 牛肉、豆腐、鱼碗 | 中 | 普罗旺斯番茄 |
+| 蘑菇 | 口蘑/白蘑菇 | 200g | 4 | 780g | 约20g | 牛肉、豆腐 | 中 | 蟹味菇/白玉菇，风味不同 |
+| 菠菜 | 菠菜 | 250g | 3 | 560g | 约190g | 牛肉、豆腐 | 中 | 冷冻菠菜 |
+| 小白菜 | 小白菜/上海青 | 300g | 3 | 810g | 约90g | 鸡腿、鱼碗 | 中 | 油麦菜，复热口感不同 |
+| 胡萝卜 | 胡萝卜 | 500g | 1 | 420g | 约80g | 鸡腿模块 | 中 | 无 |
+| 红彩椒 | 红彩椒 | 2-3个 | 1 | 240g | 视个头 | 鸡腿模块 | 中 | 黄彩椒 |
+| 洋葱 | 黄洋葱 | 2个 | 1 | 200g | 约100g | 牛肉模块 | 中 | 紫洋葱 |
+| 土豆 | 土豆 | 1kg | 1 | 800g | 约200g | 高碳鱼碗 | 中 | 贝贝南瓜需重算碳水 |
+| 冷冻蓝莓 | 冷冻蓝莓 | 500g | 2 | 640g | 约360g | 早餐 | 中 | 鲜蓝莓需分次买 |
+| 香蕉 | 香蕉 | 4-5根 | 1 | 480g | 视大小 | 高碳日 | 中 | 苹果/橙子，训练前碳水不同 |
+| 橙子 | 橙子 | 2个 | 1 | 400g | 约0 | 加餐 | 中 | |
+| 苹果 | 苹果 | 2个 | 1 | 400g | 约0 | 加餐 | 中 | |
+| 葡萄 | 葡萄/红提小盒 | 200-250g | 1 | 180g | 20-70g | 前半周水果 | 中 | 蓝莓/橙子 |
+| 调味 | 李锦记薄盐生抽/薄盐酱油 | 500ml | 1 | 60g | 大量剩余 | 控钠调味 | 中 | 普通生抽会提高钠 |
+| 调味 | 特级初榨橄榄油 | 500-750ml | 1 | 30g | 大量剩余 | 少量烹调用 | 中 | 家里有则不买 |
 
-The grocery skill should explicitly state when exact live inventory is not available from public sources. For app-only retailers, exactness requires user-provided product screenshots, cart exports, or in-app links.
+### 盒马订单时机
 
-## Combined Workflow
+- 主订单：肉、蛋、奶、豆腐、米、豆类、燕麦、奇亚籽、罐头鱼、根茎类、番茄、蘑菇、冷冻蓝莓。
+- 周三补单：叶菜、香蕉、葡萄等容易变软或不耐放的水果蔬菜。
+- 冷冻策略：鸡腿肉和牛肉菜后半周餐盒冷冻；鱼罐头不提前开罐；蓝莓优先买冷冻。
 
-1. Use `carb-cycle-batch-meal-planner` to generate the nutritional plan and ingredient quantities.
-2. Convert every ingredient to raw, dry, drained, or edible weight.
-3. Use `store-locked-grocery-planner` to lock the order to one retailer.
-4. Check label-dependent items:
-   - canned fish sodium, oil/water pack, drained weight,
-   - milk fat and sugar,
-   - soy sauce sodium,
-   - oats added sugar,
-   - meat marinade status.
-5. Split the order if freshness matters:
-   - main order for meat, milk, eggs, grains, beans, canned fish, sturdy vegetables,
-   - midweek top-up for leafy greens, bananas, grapes, or fragile fruit.
+### 标签检查
 
-## Notes for Chinese Grocery Platforms
+| 商品 | 必查字段 | 通过条件 |
+|---|---|---|
+| 鱼罐头 | 钠、油浸/水浸、沥干重 | 优先水浸/水煮，钠越低越好 |
+| 牛奶 | 是否无糖、脂肪含量 | 低脂/脱脂纯牛奶，不买早餐奶 |
+| 燕麦 | 是否加糖 | 原味燕麦 |
+| 鸡腿肉/牛肉 | 是否腌制 | 原味生鲜，不买黑椒/奥尔良 |
+| 酱油 | 钠含量 | 优先薄盐或低钠 |
 
-For platforms such as Hema/Freshippo, Jiajiayue, Meituan, JD Daojia, and Ele.me, live SKU availability is often location- and account-gated. The store-locked skill should produce an order-ready candidate list, but must not state that a product is definitely in stock unless the exact store-specific product page or user-provided app data confirms it.
+## 中国生鲜平台注意事项
+
+盒马、家家悦、美团买菜、京东到家、饿了么等平台的 SKU 和库存经常被门店、定位和账号会话限制。`store-locked-grocery-planner` 应输出可下单候选清单，但不能在没有 App 截图、购物车导出或官方门店页面时声称“已确认有货”。

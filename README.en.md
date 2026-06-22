@@ -54,7 +54,7 @@ Then lock the shopping list to one store:
 
 ```text
 Use $store-locked-grocery-planner.
-Use the weekly meal plan above and lock the grocery order to Jiajiayue supermarket near Jinan Yinfeng Jiuxi City.
+Use the weekly meal plan above and lock the grocery order to Hema/Freshippo, using the Jinan Yinfeng Jiuxi City delivery area as the example.
 Tell me the product names, package sizes, quantities, substitutions, and confidence so I can place an order.
 ```
 
@@ -72,11 +72,11 @@ Store-locked grocery excerpt:
 
 | Category | Product target | Pack size | Buy qty | Required | Confidence |
 |---|---|---:|---:|---:|---|
-| Chicken | Unseasoned boneless skinless chicken thigh | 300g | 5 | 1290g | Medium or app-verified |
-| Milk | Unsweetened low-fat or skim milk | 250ml x 24 | 1 case | 4700ml | Medium |
+| Chicken | Hema Daily Fresh boneless skinless chicken thigh / diced chicken thigh | 300g | 5 | 1290g | Medium, app verification needed |
+| Milk | Hema organic skim milk / low-fat pure milk | 950ml | 5 | 4700ml | Medium |
 | Fish can | Water-packed mackerel or tuna | 150-200g | 2 cans | 240g drained | Low until label verified |
 
-See [`docs/examples.md`](docs/examples.md) for a fuller walkthrough.
+See [`docs/examples.en.md`](docs/examples.en.md) for a fuller English walkthrough, or [`docs/examples.md`](docs/examples.md) for the Chinese version. The example includes calculations, calendar, rice-bean bases, recipe steps, per-serving nutrition, storage/reheating, daily pickup, and the Hema grocery list.
 
 ## Safety and Accuracy
 
@@ -96,6 +96,7 @@ skills/
     agents/openai.yaml
 docs/
   examples.md
+  examples.en.md
 LICENSE
 README.md
 README.en.md

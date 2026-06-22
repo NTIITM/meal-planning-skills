@@ -54,7 +54,7 @@ Use $carb-cycle-batch-meal-planner.
 
 ```text
 Use $store-locked-grocery-planner.
-根据上面的一周食谱，锁定到济南银丰玖玺城附近的家家悦超市。
+根据上面的一周食谱，锁定到盒马鲜生，配送区域以济南银丰玖玺城为例。
 请告诉我商品名、包装规格、购买数量、替代品和置信度，让我可以直接下单。
 ```
 
@@ -72,11 +72,11 @@ Use $store-locked-grocery-planner.
 
 | 类别 | 商品目标 | 包装规格 | 购买数量 | 需要量 | 置信度 |
 |---|---|---:|---:|---:|---|
-| 鸡肉 | 原味去皮去骨鸡腿肉 | 300g | 5 | 1290g | 中，或 App 截图确认 |
-| 牛奶 | 无糖低脂/脱脂纯牛奶 | 250ml x 24 | 1箱 | 4700ml | 中 |
+| 鸡肉 | 盒马日日鲜 去皮去骨鸡腿肉/鸡腿肉丁 | 300g | 5 | 1290g | 中，需 App 确认 |
+| 牛奶 | 盒马有机脱脂纯牛奶/低脂纯牛奶 | 950ml | 5 | 4700ml | 中 |
 | 鱼罐头 | 水浸青花鱼/鲭鱼/金枪鱼 | 150-200g | 2罐 | 沥干240g | 标签确认前为低 |
 
-完整示例见 [`docs/examples.md`](docs/examples.md)。
+完整示例见 [`docs/examples.md`](docs/examples.md)，英文示例见 [`docs/examples.en.md`](docs/examples.en.md)。示例包含计算、日历、米豆饭、菜谱步骤、每份营养、储存复热、每日取餐和盒马购物清单。
 
 ## 安全与准确性
 
@@ -96,6 +96,7 @@ skills/
     agents/openai.yaml
 docs/
   examples.md
+  examples.en.md
 LICENSE
 README.md
 README.en.md
